@@ -10,8 +10,9 @@
 %% Solución:
 clc
 clear all
+tic
 
-nseg = 4;
+nseg = 50000;
 
 % Lo primero que vamos a hacer es asignar el número de leds que se
 % encienden a cada uno de los posibles valores que puede tomar el led, es
@@ -45,21 +46,25 @@ for i = 0 : nseg
     end
     
     if minutosCompletos <= 9 
-        digitValue(2) = minutosCompletos;
+        digitValue(4) = minutosCompletos;
     else 
         digitValue(3:4) = dec2base(minutosCompletos,10) - '0';
     end
     
     if segundosCompletos <= 9 
-        digitValue(5) = segundosCompletos;
+        digitValue(6) = segundosCompletos;
     else 
         digitValue(5:6) = dec2base(segundosCompletos,10) - '0';
     end
     
+%     disp(digitValue)
     % Evaluamos el valor actual de los dígitos
-    for j = digitValue
-        counter = counter + nleds(j+1);
-    end
+    
+    counter = counter + sum(nleds(digitValue+1));
+%     for j = digitValue
+%         counter = counter + nleds(j+1);
+%     end
 end
 
+toc 
 counter
